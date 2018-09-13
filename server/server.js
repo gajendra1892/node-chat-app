@@ -40,13 +40,37 @@ io.on('connection',(socket)=>{
 
     // });
 
-    socket.on('createMessage',(msg)=>{
-        console.log('server recive message',msg);
-    io.emit('newMess',{
-        from:msg.from,
-        text:msg.text,
+     socket.emit('newMess',{
+
+        from:'Admin',
+        text:'welcome to the chat app',
         createdAt: new Date().getTime()
     });
+
+    socket.broadcast.emit('newMess',{
+
+        from:'Admin',
+        text:'New User joined',
+        createdAt: new Date().getTime()
+    });
+
+
+
+    socket.on('createMessage',(msg)=>{
+        console.log('server recive message',msg);
+        //for everyone including the same
+    // io.emit('newMess',{
+    //     from:msg.from,
+    //     text:msg.text,
+    //     createdAt: new Date().getTime()
+    // });
+
+     //for everyone not including the same
+    // socket.broadcast.emit('newMess',{
+    //         from:msg.from,
+    //         text:msg.text,
+    //         createdAt: new Date().getTime()
+    //     });
         });
 
     socket.on('disconnect',()=>{
