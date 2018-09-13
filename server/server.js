@@ -28,12 +28,12 @@ io.on('connection',(socket)=>{
     //     createdAt:123
     // });
 
-    socket.emit('newMess',{
+    // socket.emit('newMess',{
 
-        from:'Gajendra',
-        to:'Rahul',
-        text:'Work properly'
-    });
+    //     from:'Gajendra',
+    //     to:'Rahul',
+    //     text:'Work properly'
+    // });
 
     // socket.on('createEmail',(newEmail)=>{
     // console.log('createEmail',newEmail);
@@ -42,7 +42,11 @@ io.on('connection',(socket)=>{
 
     socket.on('createMessage',(msg)=>{
         console.log('server recive message',msg);
-    
+    io.emit('newMess',{
+        from:msg.from,
+        text:msg.text,
+        createdAt: new Date().getTime()
+    });
         });
 
     socket.on('disconnect',()=>{

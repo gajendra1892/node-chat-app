@@ -11,12 +11,12 @@ socket.on('connect',function(){
     //     text:'Hey.This is Andrew.'
     // });
 
-    socket.emit('createMessage',{
-        to:'gajendra',
-        from:'rahul',
-        text:'ok'
-    })
-});
+//     socket.emit('createMessage',{
+//         to:'gajendra',
+//         from:'rahul',
+//         text:'ok'
+//     })
+ });
 
 socket.on('disconnect',function(){
    console.log('disconnected from server');
