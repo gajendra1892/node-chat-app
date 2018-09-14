@@ -5,6 +5,7 @@ const socketIO =require('socket.io');
 
 const publicPath =path.join(__dirname ,'../public');
 
+var {generateMessage}=require('./utils/message');
 
 var app=express();
 var server =http.createServer(app);
@@ -40,19 +41,15 @@ io.on('connection',(socket)=>{
 
     // });
 
-     socket.emit('newMess',{
+    //  socket.emit('newMess',{
 
-        from:'Admin',
-        text:'welcome to the chat app',
-        createdAt: new Date().getTime()
-    });
+    //     from:'Admin',
+    //     text:'welcome to the chat app',
+    //     createdAt: new Date().getTime()
+    // });
+    socket.emit('newMess',generateMessage('Admin','welcome to the chat app'));
 
-    socket.broadcast.emit('newMess',{
-
-        from:'Admin',
-        text:'New User joined',
-        createdAt: new Date().getTime()
-    });
+    socket.broadcast.emit('newMess',generateMessage('Admin','New User joined'));
 
 
 
@@ -65,6 +62,7 @@ io.on('connection',(socket)=>{
     //     createdAt: new Date().getTime()
     // });
 
+    io.emit('newMess', generateMessage(msg.from,msg.text));
      //for everyone not including the same
     // socket.broadcast.emit('newMess',{
     //         from:msg.from,
